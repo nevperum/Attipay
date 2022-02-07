@@ -1,0 +1,19 @@
+name: Build Vue
+on: [push]
+jobs:
+  build_vue:
+    runs-on: ubuntu-latest
+    name: Build Vue
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get SHORT_SHA env
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+      - id: Build-Vue
+        uses: xRealNeon/VuePagesAction@1.0.1
+        with:
+          username: "$GITHUB_REPOSITORY_OWNER"
+          reponame: "${{ github.event.repository.name }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          gitname: "${{ github.event.pusher.name }}"
+          gitemail: "${{ github.event.pusher.email }}"
+          gitmsg: "deploying ${{ github.ref_name }} ${{ env.SHORT_SHA }}"
