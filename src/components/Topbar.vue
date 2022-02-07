@@ -28,8 +28,6 @@ export default {
   },
   methods: {
     getDate() {
-      if (new Date().getDate() <= 10) {
-      }
       return (
         "0" +
         `${new Date().getDate()}` +
